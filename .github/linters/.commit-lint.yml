@@ -1,0 +1,8 @@
+# ------------------------------------------------------------- #
+# Note: this file is automatically managed in template-template #
+# ------------------------------------------------------------- #
+
+extends:
+  - "@commitlint/config-conventional"
+rules:
+  body-max-line-length: [2, 'always', 200]

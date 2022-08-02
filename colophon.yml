@@ -1,0 +1,8 @@
+version: 2.0.0
+
+id: template-docker
+
+about:
+  title: Docker Template
+  description: a template for Docker projects
+  repository: ahmadnassri/template-docker

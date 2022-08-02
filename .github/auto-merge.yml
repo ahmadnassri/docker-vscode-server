@@ -1,0 +1,15 @@
+# ------------------------------------------------------------- #
+# Note: this file is automatically managed in template-template #
+# ------------------------------------------------------------- #
+
+- match:
+    dependency_type: development
+    update_type: semver:minor
+
+- match:
+    dependency_type: production
+    update_type: security:minor
+
+- match:
+    dependency_type: production
+    update_type: semver:patch

@@ -1,0 +1,11 @@
+additional:
+  # temporarily include repos manually # https://github.com/github/docs/issues/3630
+  - "docker-*"
+
+files:
+  - "!src/.gitignore"
+  - "!Dockerfile"
+  - "!colophon.yml"
+  - "!README.md"
+  - "!docs/README.md"
+  - "!**/template-sync.yml"
