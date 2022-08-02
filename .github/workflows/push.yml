@@ -71,7 +71,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2.3.5
       - id: release
-        uses: ahmadnassri/action-semantic-release@v1
+        uses: ahmadnassri/action-semantic-release@v2
         with:
           config: ${{ github.workspace }}/.semantic.json
         env:
