@@ -15,15 +15,21 @@ The Visual Studio Code Server is a service you can run on a remote development m
 
 This is simply a containerized version of the VS Code Server.
 
-Learn more on [the official website][]
+Learn more on [the official documentation][]
 
-## Features:
+## Features
+
+<!-- markdownlint-capture -->
+
+<!-- markdownlint-disable MD007 MD030 -->
 
 -   Runs entirely locally, without needing `vscode.dev`
     -   TODO: add flag to support `vscode.dev`
 -   Persistent secrets *(requirement for Settings Sync)*
 
-  [the official website]: https://code.visualstudio.com/docs/remote/vscode-server
+<!-- markdownlint-restore -->
+
+  [the official documentation]: https://code.visualstudio.com/docs/remote/vscode-server
 
 ----
 > Author: [Ahmad Nassri](https://www.ahmadnassri.com/) &bull;

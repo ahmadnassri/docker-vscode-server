@@ -13,7 +13,7 @@ services:
 
   # ---- readme generator ---- #
   readme:
-    image: pandoc/core:2.11.4
+    image: pandoc/minimal:2.18.0
     volumes:
       - ./:/data
     command: >-
