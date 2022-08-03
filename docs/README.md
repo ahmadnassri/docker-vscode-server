@@ -13,3 +13,17 @@ Learn more on [the official documentation](https://code.visualstudio.com/docs/re
   - TODO: add flag to support `vscode.dev`
 - Persistent secrets _(requirement for Settings Sync)_
 <!-- markdownlint-restore -->
+
+## Usage
+
+```bash
+docker run --rm \
+  --name vscode-server \
+  --hostname vscode \
+  -p 8000:8000 \
+  -e VSCODE_KEYRING_PASS="mysecretpassword" \
+  -v /<host_folder_data>:/root/.vscode-server \
+  ahmadnassri/vscode-server:latest
+```
+
+checkout the [releases page](/releases) for all available tags

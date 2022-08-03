@@ -6,7 +6,7 @@ name: readme
 
 on:
   push:
-    branches: master
+    branches: [ master ]
     paths:
       - docs/**
       - colophon.yml

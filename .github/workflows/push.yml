@@ -46,6 +46,7 @@ jobs:
       - uses: github/super-linter/slim@v4
         env:
           LOG_LEVEL: ERROR
+          IGNORE_GITIGNORED_FILES: true
           VALIDATE_ALL_CODEBASE: false
           FILTER_REGEX_EXCLUDE: '/github/workspace/README.md|test/fixtures/*'
           GITHUB_TOKEN: ${{ github.token }}
@@ -131,7 +132,7 @@ jobs:
             org.opencontainers.image.title=${{ steps.hub.outputs.name }}
             org.opencontainers.image.url=${{ github.event.repository.html_url }}
             org.opencontainers.image.version=${{ needs.release.outputs.release-version }}
-            org.opencontainers.image.source=${{ github.event.repository.clone_url }}
+            org.opencontainers.image.source=${{ github.event.repository.html_url }}
             org.opencontainers.image.revision=${{ github.sha }}
 
   template-sync:

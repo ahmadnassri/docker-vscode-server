@@ -10,6 +10,8 @@ services:
       LOG_LEVEL: 'ERROR'
       RUN_LOCAL: 'true'
       MULTI_STATUS: 'false'
+      IGNORE_GITIGNORED_FILES: 'true'
+      FILTER_REGEX_EXCLUDE: '/tmp/lint/README.md|test/fixtures/*'
 
   # ---- readme generator ---- #
   readme:

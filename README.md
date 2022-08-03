@@ -29,7 +29,22 @@ Learn more on [the official documentation][]
 
 <!-- markdownlint-restore -->
 
+## Usage
+
+``` bash
+docker run --rm \
+  --name vscode-server \
+  --hostname vscode \
+  -p 8000:8000 \
+  -e VSCODE_KEYRING_PASS="mysecretpassword" \
+  -v /<host_folder_data>:/root/.vscode-server \
+  ahmadnassri/vscode-server:latest
+```
+
+checkout the [releases page][] for all available tags
+
   [the official documentation]: https://code.visualstudio.com/docs/remote/vscode-server
+  [releases page]: /releases
 
 ----
 > Author: [Ahmad Nassri](https://www.ahmadnassri.com/) &bull;
