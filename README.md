@@ -4,7 +4,6 @@ a Docker image for VS Code Server
 
 [![license][license-img]][license-url]
 [![release][release-img]][release-url]
-[![super linter][super-linter-img]][super-linter-url]
 [![semantic][semantic-img]][semantic-url]
 
 [![size][size-img]][size-url]
@@ -52,9 +51,6 @@ docker run --rm \
 
 [release-url]: https://github.com/ahmadnassri/docker-vscode-server/releases
 [release-img]: https://badgen.net/github/release/ahmadnassri/docker-vscode-server
-
-[super-linter-url]: https://github.com/ahmadnassri/docker-vscode-server/actions?query=workflow%3Asuper-linter
-[super-linter-img]: https://github.com/ahmadnassri/docker-vscode-server/workflows/super-linter/badge.svg
 
 [semantic-url]: https://github.com/ahmadnassri/docker-vscode-server/actions?query=workflow%3Arelease
 [semantic-img]: https://badgen.net/badge/📦/semantically%20released/blue
