@@ -1,6 +1,6 @@
 version: 2.0.0
 
-id: docker-vscode-server
+id: vscode-server
 
 about:
   title: VS Code Server Docker Image

@@ -41,10 +41,7 @@ docker run --rm \
   ahmadnassri/vscode-server:latest
 ```
 
-checkout the [releases page][] for all available tags
-
   [the official documentation]: https://code.visualstudio.com/docs/remote/vscode-server
-  [releases page]: /releases
 
 ----
 > Author: [Ahmad Nassri](https://www.ahmadnassri.com/) &bull;
@@ -68,5 +65,5 @@ checkout the [releases page][] for all available tags
 [docker-url]: https://hub.docker.com/r/ahmadnassri/docker-vscode-server
 [docker-img]: https://badgen.net/badge/icon/docker%20hub?icon=docker&label
 
-[github-url]: https://github.com/users/ahmadnassri/packages/container/package/docker-vscode-server
+[github-url]: https://github.com/ahmadnassri/docker-vscode-server/pkgs/container/vscode-server
 [github-img]: https://badgen.net/badge/icon/github%20registry?icon=github&label

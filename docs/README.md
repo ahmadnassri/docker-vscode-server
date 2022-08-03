@@ -25,5 +25,3 @@ docker run --rm \
   -v /<host_folder_data>:/root/.vscode-server \
   ahmadnassri/vscode-server:latest
 ```
-
-checkout the [releases page](/releases) for all available tags
