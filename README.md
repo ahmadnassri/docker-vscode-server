@@ -59,10 +59,10 @@ docker run --rm \
 [semantic-url]: https://github.com/ahmadnassri/docker-vscode-server/actions?query=workflow%3Arelease
 [semantic-img]: https://badgen.net/badge/📦/semantically%20released/blue
 
-[size-url]: https://hub.docker.com/r/ahmadnassri/docker-vscode-server
-[size-img]: https://badgen.net/docker/size/ahmadnassri/docker-vscode-server
+[size-url]: https://hub.docker.com/r/ahmadnassri/vscode-server
+[size-img]: https://badgen.net/docker/size/ahmadnassri/vscode-server
 
-[docker-url]: https://hub.docker.com/r/ahmadnassri/docker-vscode-server
+[docker-url]: https://hub.docker.com/r/ahmadnassri/vscode-server
 [docker-img]: https://badgen.net/badge/icon/docker%20hub?icon=docker&label
 
 [github-url]: https://github.com/ahmadnassri/docker-vscode-server/pkgs/container/vscode-server
