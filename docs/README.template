@@ -4,8 +4,6 @@ $about.description$
 
 [![license][license-img]][license-url]
 [![release][release-img]][release-url]
-[![semantic][semantic-img]][semantic-url]
-
 [![size][size-img]][size-url]
 [![docker][docker-img]][docker-url]
 [![github][github-img]][github-url]
@@ -21,9 +19,6 @@ $body$
 
 [release-url]: https://github.com/$about.repository$/releases
 [release-img]: https://badgen.net/github/release/$about.repository$
-
-[semantic-url]: https://github.com/$about.repository$/actions?query=workflow%3Arelease
-[semantic-img]: https://badgen.net/badge/📦/semantically%20released/blue
 
 [size-url]: https://hub.docker.com/r/ahmadnassri/$id$
 [size-img]: https://badgen.net/docker/size/ahmadnassri/$id$
