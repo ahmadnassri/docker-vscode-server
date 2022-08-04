@@ -21,7 +21,7 @@ $body$
 [release-img]: https://badgen.net/github/release/$about.repository$
 
 [size-url]: https://hub.docker.com/r/ahmadnassri/$id$
-[size-img]: https://badgen.net/docker/size/ahmadnassri/$id$
+[size-img]: https://badgen.net/docker/size/ahmadnassri/$id$?label=image%20size
 
 [docker-url]: https://hub.docker.com/r/ahmadnassri/$id$
 [docker-img]: https://badgen.net/badge/icon/docker%20hub?icon=docker&label
