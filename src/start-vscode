@@ -1,0 +1,6 @@
+#!/bin/bash
+set -o pipefail -o nounset
+: "${VSCODE_KEYRING_PASS:?Variable not set or empty}"
+
+# Run a dbus session, which unlocks the gnome-keyring and runs the VS Code Server inside of it
+dbus-run-session -- sh -c "(echo $VSCODE_KEYRING_PASS | gnome-keyring-daemon --unlock) && serve-local"
