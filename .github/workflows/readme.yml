@@ -25,6 +25,7 @@ jobs:
         if: ${{ env.HAS_DOCKER_TOKEN == 'true' }}
 
       - id: image
+        name: extract image name
         run: echo "::set-output name=name::$(basename "${GITHUB_REPOSITORY/docker-//}")"
 
       - name: update docker hub
@@ -42,4 +43,5 @@ jobs:
             --header "Authorization: JWT ${JWT}" \
             --header "Content-Type: application/json" \
             --data @- \
+            --output /dev/null \
             "https://hub.docker.com/v2/repositories/${{ github.repository_owner }}/${{ steps.image.outputs.name }}"
