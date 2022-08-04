@@ -1,0 +1,6 @@
+{
+  "include": [
+    { "id": "GH", "registry": "ghcr.io" },
+    { "id": "DOCKER", "registry": "docker.io" }
+  ]
+}
