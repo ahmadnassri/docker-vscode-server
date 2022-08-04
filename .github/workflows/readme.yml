@@ -1,0 +1,45 @@
+# ----------------------------------------------------------- #
+# Note: this file is automatically managed in template-docker #
+# ----------------------------------------------------------- #
+
+on:
+  workflow_dispatch:
+
+  push:
+    paths:
+      - README.md
+
+name: readme
+
+jobs:
+  publish:
+    timeout-minutes: 10
+
+    runs-on: ubuntu-latest
+
+    env:
+      HAS_DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN != '' }}
+
+    steps:
+      - uses: actions/checkout@v3
+        if: ${{ env.HAS_DOCKER_TOKEN == 'true' }}
+
+      - id: image
+        run: echo "::set-output name=name::$(basename "${GITHUB_REPOSITORY/docker-//}")"
+
+      - name: update docker hub
+        run: |
+          JWT=$(curl --silent --data "username=${{ github.repository_owner }}&password=${{ secrets.DOCKER_TOKEN }}" https://hub.docker.com/v2/users/login/ | jq -r .token)
+          jq \
+            --null-input \
+            --arg description "${{ github.event.repository.description }}" \
+            --arg readme "$(cat README.md)" \
+            '{"description": $description, "full_description": $readme}' \
+          | \
+          curl \
+            --silent \
+            --request PATCH \
+            --header "Authorization: JWT ${JWT}" \
+            --header "Content-Type: application/json" \
+            --data @- \
+            "https://hub.docker.com/v2/repositories/${{ github.repository_owner }}/${{ steps.image.outputs.name }}"

@@ -58,6 +58,9 @@ jobs:
   publish-strategy:
     timeout-minutes: 5
 
+    # only runs on main branch
+    if: ${{ github.ref == 'refs/heads/master' }}
+
     runs-on: ubuntu-latest
 
     outputs:
@@ -141,24 +144,6 @@ jobs:
             org.opencontainers.image.version=${{ needs.release.outputs.release-version }}
             org.opencontainers.image.source=${{ github.event.repository.html_url }}
             org.opencontainers.image.revision=${{ github.sha }}
-
-      - name: update description
-        if: ${{ matrix.registry == 'docker.io' }}
-        run: |
-          JWT=$(curl --silent --data "username=${{ github.repository_owner }}&password=${{ secrets.DOCKER_TOKEN }}" https://hub.docker.com/v2/users/login/ | jq -r .token)
-          jq \
-            --null-input \
-            --arg description "${{ github.event.repository.description }}" \
-            --arg readme "$(cat README.md)" \
-            '{"description": $description, "full_description": $readme}' \
-          | \
-          curl \
-            --silent \
-            --request PATCH \
-            --header "Authorization: JWT ${JWT}" \
-            --header "Content-Type: application/json" \
-            --data @- \
-            "https://hub.docker.com/v2/repositories/${{ github.repository_owner }}/${{ needs.metadata.outputs.image-name }}"
 
   template-sync:
     timeout-minutes: 20
