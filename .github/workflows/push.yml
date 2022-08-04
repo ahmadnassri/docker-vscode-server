@@ -142,6 +142,13 @@ jobs:
             org.opencontainers.image.source=${{ github.event.repository.html_url }}
             org.opencontainers.image.revision=${{ github.sha }}
 
+      - name: update description
+        if: ${{ matrix.registry == 'docker.io' }}
+        run: |
+          JWT=$(curl -s -d "username=${{ github.repository_owner }}&password=${{ secrets.DOCKER_TOKEN }}" https://hub.docker.com/v2/users/login/ | jq -r .token)
+          http --quiet PATCH "https://hub.docker.com/v2/repositories/${{ github.repository_owner }}/$IMAGE" "Authorization: JWT ${JWT}" "description=${{ github.event.repository.description }}" full_description=@README.md
+
+
   template-sync:
     timeout-minutes: 20
 
