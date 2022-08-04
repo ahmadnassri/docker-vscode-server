@@ -16,6 +16,9 @@ pull: ## pull latest containers
 lint: clean ## run super-linter
 	@docker compose run --rm lint
 
+readme: clean ## run readme action
+	@docker compose run --rm readme
+
 start: ## start the project in foreground
 	@docker compose up --renew-anon-volumes app
 
