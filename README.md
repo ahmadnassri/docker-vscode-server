@@ -21,7 +21,7 @@ Learn more on [the official documentation][]
 <!-- markdownlint-disable MD007 MD030 -->
 
 -   Runs entirely locally, without needing `vscode.dev`
-    -   TODO: add flag to support `vscode.dev`
+    -   TODO: pending resolution of [issue \#7018][] to support `vscode.dev`
 -   Persistent secrets *(requirement for Settings Sync)*
 
 <!-- markdownlint-restore -->
@@ -39,6 +39,7 @@ docker run --rm \
 ```
 
   [the official documentation]: https://code.visualstudio.com/docs/remote/vscode-server
+  [issue \#7018]: https://github.com/microsoft/vscode-remote-release/issues/7018
 
 ----
 > Author: [Ahmad Nassri](https://www.ahmadnassri.com/) &bull;

@@ -10,7 +10,7 @@ Learn more on [the official documentation](https://code.visualstudio.com/docs/re
 <!-- markdownlint-capture -->
 <!-- markdownlint-disable MD007 MD030 -->
 - Runs entirely locally, without needing `vscode.dev`
-  - TODO: add flag to support `vscode.dev`
+  - TODO: pending resolution of [issue #7018](https://github.com/microsoft/vscode-remote-release/issues/7018) to support `vscode.dev`
 - Persistent secrets _(requirement for Settings Sync)_
 <!-- markdownlint-restore -->
 

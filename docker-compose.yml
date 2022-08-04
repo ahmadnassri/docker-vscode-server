@@ -35,3 +35,4 @@ services:
     build: .
     environment:
       VSCODE_KEYRING_PASS: 'mysecret'
+      VSCODE_SERVE_MODE: 'local'

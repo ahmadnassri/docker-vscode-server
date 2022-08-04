@@ -20,7 +20,7 @@ start: ## start the project in foreground
 	@docker compose up --renew-anon-volumes app
 
 build: clean ## start the project in background
-	@docker compose build --no-cache app
+	@docker compose build app
 
 shell: ## start the container shell
 	@docker compose run --rm --entrypoint /bin/sh app
