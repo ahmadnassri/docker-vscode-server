@@ -28,3 +28,10 @@ services:
       --wrap=preserve
       --reference-links
       docs/README.md
+
+  # ---- app ---- #
+  app:
+    privileged: true
+    build: .
+    environment:
+      VSCODE_KEYRING_PASS: 'mysecret'
