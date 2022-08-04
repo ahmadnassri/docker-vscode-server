@@ -145,9 +145,9 @@ jobs:
       - name: update description
         if: ${{ matrix.registry == 'docker.io' }}
         run: |
-          JWT=$(curl -s -d "username=${{ github.repository_owner }}&password=${{ secrets.DOCKER_TOKEN }}" https://hub.docker.com/v2/users/login/ | jq -r .token)
-          http --quiet PATCH "https://hub.docker.com/v2/repositories/${{ github.repository_owner }}/$IMAGE" "Authorization: JWT ${JWT}" "description=${{ github.event.repository.description }}" full_description=@README.md
-
+          JWT=$(curl --silent --data "username=${{ github.repository_owner }}&password=${{ secrets.DOCKER_TOKEN }}" https://hub.docker.com/v2/users/login/ | jq -r .token)
+          jq --null-input --arg description "${{ github.event.repository.description }}" --arg readme "$(cat README.md)" '{"description": $description, "full_description": $readme}' | \
+          curl --silent -X PATCH -H "Authorization: JWT ${JWT}" --json @- "https://hub.docker.com/v2/repositories/${{ github.repository_owner }}/${{ needs.metadata.outputs.image-name }}"
 
   template-sync:
     timeout-minutes: 20
