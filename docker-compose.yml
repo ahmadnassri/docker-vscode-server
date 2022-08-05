@@ -1,33 +1,27 @@
-version: '3.8'
+# --------------------------------------------- #
+# Note: this file originates in template-docker #
+# --------------------------------------------- #
 
 services:
   # ---- super-linter ---- #
   lint:
     image: github/super-linter:slim-v4
     volumes:
-      - ./:/tmp/lint
+      - ./:/workspace
     environment:
       LOG_LEVEL: 'ERROR'
       RUN_LOCAL: 'true'
       MULTI_STATUS: 'false'
       IGNORE_GITIGNORED_FILES: 'true'
-      FILTER_REGEX_EXCLUDE: '/tmp/lint/README.md|test/fixtures/*'
+      DEFAULT_WORKSPACE: /workspace
+      FILTER_REGEX_EXCLUDE: '/workspace/README.md|test/fixtures/*'
 
   # ---- readme generator ---- #
   readme:
     image: pandoc/minimal:2.18.0
     volumes:
       - ./:/data
-    command: >-
-      --metadata-file=colophon.yml
-      --template=docs/README.template
-      --output=README.md
-      --from=gfm
-      --to=gfm
-      --fail-if-warnings
-      --wrap=preserve
-      --reference-links
-      docs/README.md
+    command: --defaults=.pandoc.yml
 
   # ---- app ---- #
   app:
