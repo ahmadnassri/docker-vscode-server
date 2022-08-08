@@ -15,12 +15,12 @@ jobs:
     runs-on: ubuntu-latest
 
     outputs:
-      repository: ${{ steps.metadata.outputs.repository }}
+      repository_is_template: ${{ steps.metadata.outputs.repository_is_template }}
 
     steps:
       - uses: actions/checkout@v3.0.2
 
-      - uses: ahmadnassri/action-metadata@v1
+      - uses: ahmadnassri/action-metadata@v2.1.1
         id: metadata
 
   auto-merge:
@@ -67,7 +67,7 @@ jobs:
     runs-on: ubuntu-latest
 
     # only run for templates
-    if: ${{ fromJSON(needs.metadata.outputs.repository).is_template }}
+    if: ${{ needs.metadata.outputs.repository_is_template }}
 
     steps:
       - uses: actions/checkout@v3.0.2
