@@ -67,7 +67,7 @@ jobs:
     runs-on: ubuntu-latest
 
     # only run for templates
-    if: ${{ needs.metadata.outputs.repository_is_template }}
+    if: ${{ needs.metadata.outputs.repository_is_template == 'true' }}
 
     steps:
       - uses: actions/checkout@v3.0.2
