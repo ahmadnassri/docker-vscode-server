@@ -14,13 +14,14 @@ jobs:
 
     outputs:
       image-name: ${{ steps.image.outputs.name }}
-      repository: ${{ steps.metadata.outputs.repository }}
+      repository_is_template: ${{ steps.metadata.outputs.repository_is_template }}
+      repository_default_branch: ${{ steps.metadata.outputs.repository_default_branch }}
 
     steps:
       - uses: actions/checkout@v3
 
-      - uses: ahmadnassri/action-metadata@v1
-        id: metadata
+      - id: metadata
+        uses: ahmadnassri/action-metadata@v2.1.1
 
       - id: image
         run: echo "::set-output name=name::$(basename "${GITHUB_REPOSITORY/docker-//}")"
@@ -50,8 +51,9 @@ jobs:
       - uses: github/super-linter/slim@v4
         env:
           LOG_LEVEL: ERROR
-          IGNORE_GITIGNORED_FILES: true
-          VALIDATE_ALL_CODEBASE: false
+          VALIDATE_JSCPD: 'false'
+          VALIDATE_ALL_CODEBASE: 'false'
+          IGNORE_GITIGNORED_FILES: 'true'
           FILTER_REGEX_EXCLUDE: '/github/workspace/README.md|test/fixtures/*'
           GITHUB_TOKEN: ${{ github.token }}
 
@@ -72,14 +74,15 @@ jobs:
         run: echo "::set-output name=matrix::$(jq -c . < .github/publish-matrix.json)"
 
   release:
-    timeout-minutes: 5
-
     needs:
+      - metadata
       - commit-lint
       - super-linter
 
     # only runs on main branch
-    if: ${{ github.ref == 'refs/heads/master' }}
+    if: ${{ needs.metadata.outputs.repository_default_branch == github.ref_name }}
+
+    timeout-minutes: 5
 
     runs-on: ubuntu-latest
 
@@ -91,6 +94,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+        with:
+          submodules: true
+
       - id: release
         uses: ahmadnassri/action-semantic-release@v2
         with:
@@ -154,8 +160,10 @@ jobs:
       - commit-lint
       - super-linter
 
-    # only runs on main branch and only for the template
-    if: ${{ github.ref == 'refs/heads/master' && fromJSON(needs.metadata.outputs.repository).is_template }}
+    # only runs on main branch for template repos
+    if: |
+      needs.metadata.outputs.repository_is_template == 'true' &&
+      needs.metadata.outputs.repository_default_branch == github.ref_name
 
     runs-on: ubuntu-latest
 
