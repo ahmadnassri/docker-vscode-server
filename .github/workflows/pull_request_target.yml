@@ -70,10 +70,12 @@ jobs:
     if: ${{ needs.metadata.outputs.repository_is_template == 'true' }}
 
     steps:
+      - uses: ahmadnassri/action-workflow-queue@v1.1
+
       - uses: actions/checkout@v3.0.2
         with:
           ref: ${{ github.event.pull_request.head.ref }}
-      - uses: ahmadnassri/action-workflow-queue@v1.1
-      - uses: ahmadnassri/action-template-repository-sync@v1.6.0
+
+      - uses: ahmadnassri/action-template-repository-sync@v2
         with:
           github-token: ${{ secrets.GH_TOKEN }}
