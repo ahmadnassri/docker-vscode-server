@@ -3,18 +3,15 @@
 # --------------------------------------------- #
 
 services:
-  # ---- super-linter ---- #
+  # ---- mega-linter ---- #
   lint:
-    image: github/super-linter:slim-v4
+    image: oxsecurity/megalinter:v6.6.0
     volumes:
-      - ./:/workspace
+      - ./:/tmp/lint
     environment:
-      LOG_LEVEL: 'ERROR'
-      RUN_LOCAL: 'true'
-      MULTI_STATUS: 'false'
-      IGNORE_GITIGNORED_FILES: 'true'
-      DEFAULT_WORKSPACE: /workspace
-      FILTER_REGEX_EXCLUDE: '/workspace/README.md|test/fixtures/*'
+      MEGALINTER_CONFIG: .github/linters/.mega-linter.yml
+      REPORT_OUTPUT_FOLDER: none
+      VALIDATE_ALL_CODEBASE: true
 
   # ---- readme generator ---- #
   readme:

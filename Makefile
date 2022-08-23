@@ -4,10 +4,6 @@
 # Note: this file is automatically managed in template-docker #
 # ----------------------------------------------------------- #
 
-# SHELL := /bin/bash
-
-LINT_PATH	:= ${PWD}/${LINT_PATH}
-
 # Docker
 
 pull: ## pull latest containers
@@ -41,4 +37,4 @@ help: ## display this help
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
 .DEFAULT_GOAL := help
-.PHONY: help
+.PHONY: help all clean test
