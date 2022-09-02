@@ -1,15 +1,13 @@
 #!/usr/bin/make
 
-# ----------------------------------------------------------- #
-# Note: this file is automatically managed in template-docker #
-# ----------------------------------------------------------- #
-
-# Docker
+# --------------------------------------------- #
+# Note: this file originates in template-docker #
+# --------------------------------------------- #
 
 pull: ## pull latest containers
 	@docker compose pull
 
-lint: clean ## run super-linter
+lint: clean ## run mega-linter
 	@docker compose run --rm lint
 
 readme: clean ## run readme action
