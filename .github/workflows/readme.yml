@@ -11,6 +11,9 @@ on:
 
 name: readme
 
+concurrency:
+  group: ${{ github.ref }}-${{ github.workflow }}
+
 jobs:
   publish:
     timeout-minutes: 10

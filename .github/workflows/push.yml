@@ -21,7 +21,7 @@ jobs:
       repository_default_branch: ${{ steps.metadata.outputs.repository_default_branch }}
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v3.0.2
 
       - id: metadata
         uses: ahmadnassri/action-metadata@v2.1.1
@@ -35,7 +35,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v3.0.2
 
       - uses: ahmadnassri/action-commit-lint@v1
         with:
@@ -64,30 +64,16 @@ jobs:
             megalinter-reports
             mega-linter.log
 
-  publish-strategy:
-    timeout-minutes: 5
-
-    # only runs on main branch
-    if: ${{ github.ref == 'refs/heads/master' }}
-
-    runs-on: ubuntu-latest
-
-    outputs:
-      matrix: ${{ steps.parse.outputs.matrix }}
-
-    steps:
-      - uses: actions/checkout@v3
-      - id: parse
-        run: echo "::set-output name=matrix::$(jq -c . < .github/publish-matrix.json)"
-
   release:
     needs:
       - metadata
       - commit-lint
       - mega-linter
 
-    # only runs on main branch
-    if: ${{ needs.metadata.outputs.repository_default_branch == github.ref_name }}
+    # only runs on main branch for non template repos
+    if: |
+      needs.metadata.outputs.repository_is_template == 'false' &&
+      needs.metadata.outputs.repository_default_branch == github.ref_name
 
     timeout-minutes: 5
 
@@ -95,12 +81,12 @@ jobs:
 
     outputs:
       published: ${{ steps.release.outputs.published }}
-      release-version: ${{ steps.release.outputs.release-version }}
-      release-version-major: ${{ steps.release.outputs.release-version-major }}
-      release-version-minor: ${{ steps.release.outputs.release-version-minor }}
+      version: ${{ steps.release.outputs.release-version }}
+      version-major: ${{ steps.release.outputs.release-version-major }}
+      version-minor: ${{ steps.release.outputs.release-version-minor }}
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v3.0.2
         with:
           submodules: true
 
@@ -111,7 +97,25 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
 
-  publish:
+  publish-strategy:
+    timeout-minutes: 5
+
+    # only runs on main branch for non template repos
+    if: |
+      needs.metadata.outputs.repository_is_template == 'false' &&
+      needs.metadata.outputs.repository_default_branch == github.ref_name
+
+    runs-on: ubuntu-latest
+
+    outputs:
+      matrix: ${{ steps.parse.outputs.matrix }}
+
+    steps:
+      - uses: actions/checkout@v3.0.2
+      - id: parse
+        run: echo "::set-output name=matrix::$(jq -c . < .github/publish-matrix.json)"
+
+  publish-docker:
     needs:
       - release
       - metadata
@@ -129,7 +133,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v3.0.2
       - uses: docker/setup-qemu-action@v2
       - uses: docker/setup-buildx-action@v2
 
@@ -149,21 +153,20 @@ jobs:
           platforms: linux/amd64,linux/arm64,linux/arm/v7
           tags: |
             ${{ matrix.registry }}/${{ github.repository_owner }}/${{ needs.metadata.outputs.image-name }}:latest
-            ${{ matrix.registry }}/${{ github.repository_owner }}/${{ needs.metadata.outputs.image-name }}:${{ needs.release.outputs.release-version-major }}
-            ${{ matrix.registry }}/${{ github.repository_owner }}/${{ needs.metadata.outputs.image-name }}:${{ needs.release.outputs.release-version }}
+            ${{ matrix.registry }}/${{ github.repository_owner }}/${{ needs.metadata.outputs.image-name }}:${{ needs.release.outputs.version-major }}
+            ${{ matrix.registry }}/${{ github.repository_owner }}/${{ needs.metadata.outputs.image-name }}:${{ needs.release.outputs.version }}
           labels: |
             org.opencontainers.image.title=${{ needs.metadata.outputs.image-name }}
             org.opencontainers.image.url=${{ github.event.repository.html_url }}
-            org.opencontainers.image.version=${{ needs.release.outputs.release-version }}
+            org.opencontainers.image.version=${{ needs.release.outputs.version }}
             org.opencontainers.image.source=${{ github.event.repository.html_url }}
             org.opencontainers.image.revision=${{ github.sha }}
 
   template-sync:
-    timeout-minutes: 20
+    timeout-minutes: 5
 
     needs:
       - metadata
-      - release
       - commit-lint
       - mega-linter
 
@@ -175,9 +178,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: ahmadnassri/action-workflow-queue@v1.1
-
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v3.0.2
 
       - uses: ahmadnassri/action-template-repository-sync@v2
         with:
