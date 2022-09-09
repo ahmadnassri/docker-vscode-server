@@ -1,6 +1,6 @@
-# ------------------------------------------------------------- #
-# Note: this file is automatically managed in template-template #
-# ------------------------------------------------------------- #
+# ----------------------------------------------- #
+# Note: this file originates in template-template #
+# ----------------------------------------------- #
 
 quiet: true
 skip-check:

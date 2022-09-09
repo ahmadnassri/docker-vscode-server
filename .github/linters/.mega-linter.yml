@@ -1,6 +1,6 @@
-# ------------------------------------------------------------- #
-# Note: this file is automatically managed in template-template #
-# ------------------------------------------------------------- #
+# ----------------------------------------------- #
+# Note: this file originates in template-template #
+# ----------------------------------------------- #
 
 ENABLE: ACTION,BASH,MAKEFILE,REPOSITORY,TERRAFORM,HTML,ENV,JAVASCRIPT,JSX,EDITORCONFIG,JSON,DOCKERFILE,MARKDOWN,YAML,CSS,OPENAPI,SQL
 DISABLE_LINTERS:
