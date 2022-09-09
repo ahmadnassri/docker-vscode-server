@@ -91,13 +91,16 @@ jobs:
           submodules: true
 
       - id: release
-        uses: ahmadnassri/action-semantic-release@v2
+        uses: ahmadnassri/action-semantic-release@v2.1.9
         with:
           config: ${{ github.workspace }}/.semantic.json
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
 
   publish-strategy:
+    needs:
+      - metadata
+
     timeout-minutes: 5
 
     # only runs on main branch for non template repos
