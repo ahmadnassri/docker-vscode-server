@@ -22,5 +22,3 @@ VALIDATE_ALL_CODEBASE: false
 IGNORE_GENERATED_FILES: true
 FILTER_REGEX_EXCLUDE: (dist/*|README.md|test/fixtures/*|vendor/*|/schemas/*)
 REPOSITORY_CHECKOV_ARGUMENTS: [--skip-path, schemas]
-
-DISABLE_ERRORS: true # TODO: disable once https://github.com/oxsecurity/megalinter/pull/1798 is merged
