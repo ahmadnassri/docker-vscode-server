@@ -34,15 +34,11 @@ jobs:
     # only run for dependabot PRs
     if: ${{ github.actor == 'dependabot[bot]' }}
 
-    env:
-      PR_URL: ${{github.event.pull_request.html_url}}
-      GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-
     steps:
       - id: dependabot
         uses: dependabot/fetch-metadata@v1.3.3
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ github.token }}
 
       - name: auto merge conditions
         id: auto-merge
@@ -58,6 +54,9 @@ jobs:
 
       - name: auto approve pr
         if: ${{ steps.auto-merge.conclusion == 'success' }}
+        env:
+          PR_URL: ${{github.event.pull_request.html_url}}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           gh pr review --approve "$PR_URL"
           gh pr merge --auto --rebase "$PR_URL"
