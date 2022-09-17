@@ -17,8 +17,8 @@
       "preset": "conventionalcommits",
       "presetConfig": {
         "types": [
+          { "type": "chore",    "section": "Chores",      "hidden": true },
           { "type": "build",    "section": "Build",       "hidden": false },
-          { "type": "chore",    "section": "Chores",      "hidden": false },
           { "type": "ci",       "section": "CI/CD",       "hidden": false },
           { "type": "docs",     "section": "Docs",        "hidden": false },
           { "type": "feat",     "section": "Features",    "hidden": false },
