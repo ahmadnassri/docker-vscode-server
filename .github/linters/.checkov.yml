@@ -9,3 +9,4 @@ skip-check:
   - BC_DKR_3
   - CKV_GIT_1
   - CKV_GIT_5
+  - CKV_GIT_6
