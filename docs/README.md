@@ -22,6 +22,7 @@ docker run --rm \
   --hostname vscode \
   -p 8000:8000 \
   -e VSCODE_KEYRING_PASS="mysecretpassword" \
+  -e VSCODE_SERVE_MODE=serve-local \
   -v /<host_folder_data>:/root/.vscode-server \
   ahmadnassri/vscode-server:latest
 ```
