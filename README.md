@@ -34,6 +34,7 @@ docker run --rm \
   --hostname vscode \
   -p 8000:8000 \
   -e VSCODE_KEYRING_PASS="mysecretpassword" \
+  -e VSCODE_SERVE_MODE=serve-local \
   -v /<host_folder_data>:/root/.vscode-server \
   ahmadnassri/vscode-server:latest
 ```
@@ -52,10 +53,10 @@ docker run --rm \
 [release-img]: https://badgen.net/github/release/ahmadnassri/docker-vscode-server
 
 [size-url]: https://hub.docker.com/r/ahmadnassri/vscode-server
-[size-img]: https://badgen.net/docker/size/ahmadnassri/vscode-server
+[size-img]: https://badgen.net/docker/size/ahmadnassri/vscode-server?label=image%20size
 
 [docker-url]: https://hub.docker.com/r/ahmadnassri/vscode-server
 [docker-img]: https://badgen.net/badge/icon/docker%20hub?icon=docker&label
 
-[github-url]: https://github.com/ahmadnassri/docker-vscode-server/pkgs/container/vscode-server
+[github-url]: https://github.com/users/ahmadnassri/packages/container/package/vscode-server
 [github-img]: https://badgen.net/badge/icon/github%20registry?icon=github&label
