@@ -27,7 +27,7 @@ jobs:
         uses: ahmadnassri/action-metadata@v2.1.1
 
       - id: image
-        run: echo "name=$(basename "${GITHUB_REPOSITORY/docker-//}") >> $GITHUB_OUTPUT"
+        run: echo "name=$(basename "${GITHUB_REPOSITORY/docker-//}")" >> $GITHUB_OUTPUT
 
   commit-lint:
     timeout-minutes: 5
@@ -116,7 +116,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3.0.2
       - id: parse
-        run: echo "matrix=$(jq -c . < .github/publish-matrix.json) >> $GITHUB_OUTPUT"
+        run: echo "matrix=$(jq -c . < .github/publish-matrix.json)" >> $GITHUB_OUTPUT
 
   publish-docker:
     needs:
