@@ -29,7 +29,7 @@ jobs:
 
       - id: image
         name: extract image name
-        run: echo "::set-output name=name::$(basename "${GITHUB_REPOSITORY/docker-//}")"
+        run: echo "name=$(basename "${GITHUB_REPOSITORY/docker-//}") >> $GITHUB_OUTPUT"
 
       - name: update docker hub
         run: |
