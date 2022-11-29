@@ -39,6 +39,11 @@ docker run --rm \
   ahmadnassri/vscode-server:latest
 ```
 
+Optionally, you can specify an init script that could be used to install additional software adding the following mount:
+```bash
+-v /<init_script_path>:/usr/local/bin/init
+```
+
   [the official documentation]: https://code.visualstudio.com/docs/remote/vscode-server
   [issue \#7018]: https://github.com/microsoft/vscode-remote-release/issues/7018
 

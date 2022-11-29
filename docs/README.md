@@ -26,3 +26,8 @@ docker run --rm \
   -v /<host_folder_data>:/root/.vscode-server \
   ahmadnassri/vscode-server:latest
 ```
+
+Optionally, you can specify an init script that could be used to install additional software adding the following mount:
+```bash
+-v /<init_script_path>:/usr/local/bin/init
+```
