@@ -24,12 +24,12 @@ jobs:
       HAS_DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN != '' }}
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v3.2.0
         if: ${{ env.HAS_DOCKER_TOKEN == 'true' }}
 
       - id: image
         name: extract image name
-        run: echo "name=$(basename "${GITHUB_REPOSITORY/docker-//}")" >> $GITHUB_OUTPUT
+        run: echo "name=$(basename "${GITHUB_REPOSITORY/docker-//}")" >> "$GITHUB_OUTPUT"
 
       - name: update docker hub
         run: |

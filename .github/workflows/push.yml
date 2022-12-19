@@ -21,13 +21,13 @@ jobs:
       repository_default_branch: ${{ steps.metadata.outputs.repository_default_branch }}
 
     steps:
-      - uses: actions/checkout@v3.0.2
+      - uses: actions/checkout@v3.2.0
 
       - id: metadata
         uses: ahmadnassri/action-metadata@v2.1.2
 
       - id: image
-        run: echo "name=$(basename "${GITHUB_REPOSITORY/docker-//}")" >> $GITHUB_OUTPUT
+        run: echo "name=$(basename "${GITHUB_REPOSITORY/docker-//}")" >> "$GITHUB_OUTPUT"
 
   commit-lint:
     timeout-minutes: 5
@@ -35,9 +35,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3.0.2
+      - uses: actions/checkout@v3.2.0
 
-      - uses: ahmadnassri/action-commit-lint@v2.0.3
+      - uses: ahmadnassri/action-commit-lint@v2.0.4
         with:
           config: .github/linters/.commit-lint.yml
 
@@ -47,9 +47,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3.0.2
+      - uses: actions/checkout@v3.2.0
 
-      - uses: oxsecurity/megalinter@v6
+      - uses: oxsecurity/megalinter@v6.15.0
         env:
           GITHUB_TOKEN: ${{ github.token }}
           MEGALINTER_CONFIG: .github/linters/.mega-linter.yml
@@ -86,12 +86,12 @@ jobs:
       version-minor: ${{ steps.release.outputs.release-version-minor }}
 
     steps:
-      - uses: actions/checkout@v3.0.2
+      - uses: actions/checkout@v3.2.0
         with:
           submodules: true
 
       - id: release
-        uses: ahmadnassri/action-semantic-release@v2.1.9
+        uses: ahmadnassri/action-semantic-release@v2.1.11
         with:
           config: ${{ github.workspace }}/.semantic.json
         env:
@@ -114,9 +114,9 @@ jobs:
       matrix: ${{ steps.parse.outputs.matrix }}
 
     steps:
-      - uses: actions/checkout@v3.0.2
+      - uses: actions/checkout@v3.2.0
       - id: parse
-        run: echo "matrix=$(jq -c . < .github/publish-matrix.json)" >> $GITHUB_OUTPUT
+        run: echo "matrix=$(jq -c . < .github/publish-matrix.json)" >> "$GITHUB_OUTPUT"
 
   publish-docker:
     needs:
@@ -136,7 +136,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3.0.2
+      - uses: actions/checkout@v3.2.0
       - uses: docker/setup-qemu-action@v2
       - uses: docker/setup-buildx-action@v2
 
@@ -181,8 +181,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3.0.2
+      - uses: actions/checkout@v3.2.0
 
-      - uses: ahmadnassri/action-template-repository-sync@v2
+      - uses: ahmadnassri/action-template-repository-sync@v2.3.0
         with:
           github-token: ${{ secrets.GH_TOKEN }}

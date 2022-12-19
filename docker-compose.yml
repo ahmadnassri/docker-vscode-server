@@ -6,7 +6,7 @@ services:
   # ---- mega-linter ---- #
   lint:
     profiles: ["dev"]
-    image: oxsecurity/megalinter:v6.6.0
+    image: oxsecurity/megalinter:v6.15.0
     volumes:
       - ./:/tmp/lint
     environment:
@@ -17,7 +17,7 @@ services:
   # ---- readme generator ---- #
   readme:
     profiles: ["dev"]
-    image: pandoc/minimal:2.18.0
+    image: pandoc/minimal:2.19
     volumes:
       - ./:/data
     command: --defaults=.pandoc.yml
