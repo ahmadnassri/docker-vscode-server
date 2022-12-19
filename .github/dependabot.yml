@@ -1,3 +1,7 @@
+# --------------------------------------------- #
+# Note: this file originates in template-docker #
+# --------------------------------------------- #
+
 version: 2
 updates:
   - package-ecosystem: npm
