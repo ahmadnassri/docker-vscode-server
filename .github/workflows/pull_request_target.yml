@@ -21,7 +21,7 @@ jobs:
       repository_is_template: ${{ steps.metadata.outputs.repository_is_template }}
 
     steps:
-      - uses: actions/checkout@v3.1.0
+      - uses: actions/checkout@v3.2.0
 
       - uses: ahmadnassri/action-metadata@v2.1.2
         id: metadata
@@ -43,13 +43,9 @@ jobs:
       - name: auto merge conditions
         id: auto-merge
         if: |
-          (
-            steps.dependabot.outputs.update-type == 'version-update:semver-patch' &&
-            contains('direct:development,indirect:development,direct:production,indirect:production', steps.dependabot.outputs.dependency-type)
-          ) || (
-            steps.dependabot.outputs.update-type == 'version-update:semver-minor' &&
-            contains('direct:development,indirect:development', steps.dependabot.outputs.dependency-type)
-          )
+          contains('version-update:semver-minor,version-update:semver-patch', steps.dependabot.outputs.update-type) &&
+          contains('direct:development,indirect:development,direct:production,indirect:production', steps.dependabot.outputs.dependency-type)
+
         run: echo "::notice ::auto-merge conditions satisfied"
 
       - name: auto approve pr
@@ -72,7 +68,7 @@ jobs:
     if: ${{ needs.metadata.outputs.repository_is_template == 'true' }}
 
     steps:
-      - uses: actions/checkout@v3.1.0
+      - uses: actions/checkout@v3.2.0
         with:
           ref: ${{ github.event.pull_request.head.ref }}
 

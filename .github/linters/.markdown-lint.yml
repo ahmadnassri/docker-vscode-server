@@ -64,7 +64,6 @@ MD022:
   lines_above: 1
   lines_below: 1
 
-
 # Headings must start at the beginning of the line
 MD023: true
 
