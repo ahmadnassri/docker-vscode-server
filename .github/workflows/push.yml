@@ -37,7 +37,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3.2.0
 
-      - uses: ahmadnassri/action-commit-lint@v2.0.4
+      - uses: ahmadnassri/action-commit-lint@v2.0.5
         with:
           config: .github/linters/.commit-lint.yml
 
@@ -49,7 +49,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3.2.0
 
-      - uses: oxsecurity/megalinter@v6.15.0
+      - uses: oxsecurity/megalinter@v6.17.0
         env:
           GITHUB_TOKEN: ${{ github.token }}
           MEGALINTER_CONFIG: .github/linters/.mega-linter.yml

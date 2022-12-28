@@ -72,6 +72,6 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.ref }}
 
-      - uses: ahmadnassri/action-template-repository-sync@v2.3.1
+      - uses: ahmadnassri/action-template-repository-sync@v2.3.2
         with:
           github-token: ${{ secrets.GH_TOKEN }}
