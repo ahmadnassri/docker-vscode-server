@@ -2,6 +2,8 @@ FROM ubuntu:23.04
 
 # hadolint ignore=DL3008
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive && apt-get install -y --no-install-recommends \
+    # support env timezones
+    tzdata \
     # vscode requirements
     gnome-keyring wget curl python3-minimal ca-certificates \
     # development tools
