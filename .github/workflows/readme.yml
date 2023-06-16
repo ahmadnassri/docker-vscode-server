@@ -26,7 +26,7 @@ jobs:
       HAS_DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN != '' }}
 
     steps:
-      - uses: actions/checkout@v3.4.0
+      - uses: actions/checkout@v3.5.3
         # kics-scan ignore-line
         if: ${{ env.HAS_DOCKER_TOKEN == 'true' }}
 
