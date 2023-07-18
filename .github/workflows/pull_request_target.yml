@@ -19,6 +19,8 @@ jobs:
     needs: metadata
     secrets: inherit
 
+    if: ${{ inputs.repository_is_template == 'true' }}
+
     uses: ahmadnassri/actions/.github/workflows/template-sync.yml@master
     with:
       repository_is_template: ${{ needs.metadata.outputs.repository_is_template }}
@@ -27,6 +29,7 @@ jobs:
   auto-merge:
     needs: template-sync
     secrets: inherit
+
     uses: ahmadnassri/actions/.github/workflows/auto-merge.yml@master
 
     permissions:
