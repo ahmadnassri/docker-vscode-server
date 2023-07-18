@@ -2,76 +2,33 @@
 # Note: this file originates in template-template #
 # ----------------------------------------------- #
 
-on: pull_request_target
-
 name: pull_request_target
 
-permissions:
-  pull-requests: write
-  contents: write
+on: pull_request_target
 
 concurrency:
   group: ${{ github.ref }}-${{ github.workflow }}
 
+permissions: read-all
+
 jobs:
   metadata:
-    runs-on: ubuntu-latest
-
-    outputs:
-      repository_is_template: ${{ steps.metadata.outputs.repository_is_template }}
-
-    steps:
-      - uses: actions/checkout@v3.5.3
-
-      - uses: ahmadnassri/action-metadata@v2.1.2
-        id: metadata
-
-  auto-merge:
-    timeout-minutes: 5
-
-    runs-on: ubuntu-latest
-
-    # only run for dependabot PRs
-    if: ${{ github.actor == 'dependabot[bot]' }}
-
-    steps:
-      - id: dependabot
-        uses: dependabot/fetch-metadata@v1.6.0
-        with:
-          github-token: ${{ github.token }}
-
-      - name: auto merge conditions
-        id: auto-merge
-        if: |
-          contains('version-update:semver-minor,version-update:semver-patch', steps.dependabot.outputs.update-type) &&
-          contains('direct:development,indirect:development,direct:production,indirect:production', steps.dependabot.outputs.dependency-type)
-
-        run: echo "::notice ::auto-merge conditions satisfied"
-
-      - name: auto approve pr
-        if: ${{ steps.auto-merge.conclusion == 'success' }}
-        env:
-          PR_URL: ${{github.event.pull_request.html_url}}
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: |
-          gh pr review --approve "$PR_URL"
-          gh pr merge --auto --rebase "$PR_URL"
+    uses: ahmadnassri/actions/.github/workflows/metadata.yml@master
 
   template-sync:
     needs: metadata
+    secrets: inherit
 
-    timeout-minutes: 20
+    uses: ahmadnassri/actions/.github/workflows/template-sync.yml@master
+    with:
+      repository_is_template: ${{ needs.metadata.outputs.repository_is_template }}
+      repository_default_branch: ${{ needs.metadata.outputs.repository_default_branch }}
 
-    runs-on: ubuntu-latest
+  auto-merge:
+    needs: template-sync
+    secrets: inherit
+    uses: ahmadnassri/actions/.github/workflows/auto-merge.yml@master
 
-    # only run for templates
-    if: ${{ needs.metadata.outputs.repository_is_template == 'true' }}
-
-    steps:
-      - uses: actions/checkout@v3.5.3
-        with:
-          ref: ${{ github.event.pull_request.head.ref }}
-
-      - uses: ahmadnassri/action-template-repository-sync@v2.3.4
-        with:
-          github-token: ${{ secrets.GH_TOKEN }}
+    permissions:
+      contents: write
+      pull-requests: write
