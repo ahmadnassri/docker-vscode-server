@@ -19,12 +19,9 @@ jobs:
     needs: metadata
     secrets: inherit
 
-    if: ${{ inputs.repository_is_template == 'true' }}
+    if: ${{ needs.metadata.outputs.repository_is_template == 'true' }}
 
     uses: ahmadnassri/actions/.github/workflows/template-sync.yml@master
-    with:
-      repository_is_template: ${{ needs.metadata.outputs.repository_is_template }}
-      repository_default_branch: ${{ needs.metadata.outputs.repository_default_branch }}
 
   auto-merge:
     needs: template-sync
