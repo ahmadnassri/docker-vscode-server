@@ -12,23 +12,14 @@ concurrency:
 permissions: read-all
 
 jobs:
-  metadata:
-    uses: ahmadnassri/actions/.github/workflows/metadata.yml@master
-
-  template-sync:
-    needs: metadata
-    secrets: inherit
-
-    if: ${{ needs.metadata.outputs.repository_is_template == 'true' }}
-
-    uses: ahmadnassri/actions/.github/workflows/template-sync.yml@master
-
   auto-merge:
     needs: template-sync
     secrets: inherit
-
     uses: ahmadnassri/actions/.github/workflows/auto-merge.yml@master
-
     permissions:
       contents: write
       pull-requests: write
+
+  template-sync:
+    secrets: inherit
+    uses: ahmadnassri/actions/.github/workflows/template-sync.yml@master
