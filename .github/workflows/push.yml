@@ -185,6 +185,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3.5.3
 
-      - uses: ahmadnassri/action-template-repository-sync@v2.3.3
+      - uses: ahmadnassri/action-template-repository-sync@v2.4.6
         with:
           github-token: ${{ secrets.GH_TOKEN }}
