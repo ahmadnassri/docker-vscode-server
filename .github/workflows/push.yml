@@ -2,11 +2,11 @@
 # Note: this file originates in template-docker #
 # --------------------------------------------- #
 
+name: push
+
 on:
   - push
   - workflow_dispatch
-
-name: push
 
 concurrency:
   group: ${{ github.ref }}-${{ github.workflow }}
@@ -14,177 +14,10 @@ concurrency:
 permissions: read-all
 
 jobs:
-  metadata:
-    runs-on: ubuntu-latest
-
-    outputs:
-      image-name: ${{ steps.image.outputs.name }}
-      repository_is_template: ${{ steps.metadata.outputs.repository_is_template }}
-      repository_default_branch: ${{ steps.metadata.outputs.repository_default_branch }}
-
-    steps:
-      - uses: actions/checkout@v3.5.3
-
-      - id: metadata
-        uses: ahmadnassri/action-metadata@v2.1.2
-
-      - id: image
-        run: echo "name=$(basename "${GITHUB_REPOSITORY/docker-//}")" >> "$GITHUB_OUTPUT"
-
-  commit-lint:
-    timeout-minutes: 5
-
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v3.5.3
-
-      - uses: ahmadnassri/action-commit-lint@v2.1.9
-        with:
-          config: .github/linters/.commit-lint.yml
-
-  mega-linter:
-    timeout-minutes: 5
-
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v3.5.3
-
-      - uses: oxsecurity/megalinter@v7.2.1
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-          MEGALINTER_CONFIG: .github/linters/.mega-linter.yml
-          GITHUB_COMMENT_REPORTER: true
-          GITHUB_STATUS_REPORTER: true
-
-      - uses: actions/upload-artifact@v3
-        if: ${{ success() }} || ${{ failure() }}
-        with:
-          name: mega-linter-reports
-          path: |
-            megalinter-reports
-            mega-linter.log
-
-  release:
-    needs:
-      - metadata
-      - commit-lint
-      - mega-linter
-
-    # only runs on main branch for non template repos
-    if: |
-      needs.metadata.outputs.repository_is_template == 'false' &&
-      needs.metadata.outputs.repository_default_branch == github.ref_name
-
-    timeout-minutes: 5
-
-    runs-on: ubuntu-latest
-
-    outputs:
-      published: ${{ steps.release.outputs.published }}
-      version: ${{ steps.release.outputs.release-version }}
-      version-major: ${{ steps.release.outputs.release-version-major }}
-      version-minor: ${{ steps.release.outputs.release-version-minor }}
-
-    steps:
-      - uses: actions/checkout@v3.5.3
-        with:
-          submodules: true
-
-      - id: release
-        uses: ahmadnassri/action-semantic-release@v2.2.3
-        with:
-          config: ${{ github.workspace }}/.semantic.json
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-
-  publish-strategy:
-    needs:
-      - metadata
-
-    timeout-minutes: 5
-
-    # only runs on main branch for non template repos
-    if: |
-      needs.metadata.outputs.repository_is_template == 'false' &&
-      needs.metadata.outputs.repository_default_branch == github.ref_name
-
-    runs-on: ubuntu-latest
-
-    outputs:
-      matrix: ${{ steps.parse.outputs.matrix }}
-
-    steps:
-      - uses: actions/checkout@v3.5.3
-      - id: parse
-        run: echo "matrix=$(jq -c . < .github/publish-matrix.json)" >> "$GITHUB_OUTPUT"
-
-  publish-docker:
-    needs:
-      - release
-      - metadata
-      - publish-strategy
-
-    timeout-minutes: 10
-
-    if: ${{ needs.release.outputs.published == 'true' }}
-
-    name: ${{ format('publish to {0}', matrix.registry) || 'publish-step' }}
-
-    strategy:
-      matrix: ${{ fromJSON(needs.publish-strategy.outputs.matrix) }}
-
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v3.5.3
-      - uses: docker/setup-qemu-action@v2
-      - uses: docker/setup-buildx-action@v2
-
-      # login to registry
-      - uses: docker/login-action@v2
-        with:
-          registry: ${{ matrix.registry }}
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets[format('{0}_TOKEN', matrix.id)] }}
-
-      # publish
-      - uses: docker/build-push-action@v4
-        with:
-          push: true
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-          platforms: ${{ matrix.platforms }}
-          tags: |
-            ${{ matrix.registry }}/${{ github.repository_owner }}/${{ needs.metadata.outputs.image-name }}:latest
-            ${{ matrix.registry }}/${{ github.repository_owner }}/${{ needs.metadata.outputs.image-name }}:${{ needs.release.outputs.version-major }}
-            ${{ matrix.registry }}/${{ github.repository_owner }}/${{ needs.metadata.outputs.image-name }}:${{ needs.release.outputs.version }}
-          labels: |
-            org.opencontainers.image.title=${{ needs.metadata.outputs.image-name }}
-            org.opencontainers.image.url=${{ github.event.repository.html_url }}
-            org.opencontainers.image.version=${{ needs.release.outputs.version }}
-            org.opencontainers.image.source=${{ github.event.repository.html_url }}
-            org.opencontainers.image.revision=${{ github.sha }}
-
-  template-sync:
-    timeout-minutes: 5
-
-    needs:
-      - metadata
-      - commit-lint
-      - mega-linter
-
-    # only runs on main branch for template repos
-    if: |
-      needs.metadata.outputs.repository_is_template == 'true' &&
-      needs.metadata.outputs.repository_default_branch == github.ref_name
-
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v3.5.3
-
-      - uses: ahmadnassri/action-template-repository-sync@v2.4.6
-        with:
-          github-token: ${{ secrets.GH_TOKEN }}
+  main:
+    uses: ahmadnassri/actions/.github/workflows/push-docker.yml@master
+    permissions:
+      packages: write
+      contents: write
+      statuses: write
+      pull-requests: write

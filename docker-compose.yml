@@ -6,7 +6,7 @@ services:
   # ---- mega-linter ---- #
   lint:
     profiles: ["dev"]
-    image: oxsecurity/megalinter:v7.0.4
+    image: oxsecurity/megalinter:v7.2.1
     volumes:
       - ./:/tmp/lint
     environment:

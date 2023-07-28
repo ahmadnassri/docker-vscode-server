@@ -21,5 +21,6 @@ VALIDATE_ALL_CODEBASE: false
 IGNORE_GENERATED_FILES: true
 FILTER_REGEX_EXCLUDE: (dist/*|README.md|test/fixtures/*|vendor/*|/schemas/*)
 
+SPELL_LYCHEE_CONFIG_FILE: .lychee.toml
 MARKDOWN_MARKDOWNLINT_CONFIG_FILE: .markdown-lint.yml
 REPOSITORY_CHECKOV_ARGUMENTS: [--skip-path, schemas]
