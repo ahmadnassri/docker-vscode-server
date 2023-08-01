@@ -6,8 +6,6 @@ name: pull_request_target
 
 on: pull_request_target
 
-permissions: read-all
-
 jobs:
   main:
     uses: ahmadnassri/actions/.github/workflows/pull-request-target.yml@master

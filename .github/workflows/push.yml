@@ -8,16 +8,11 @@ on:
   - push
   - workflow_dispatch
 
-concurrency:
-  group: ${{ github.ref }}-${{ github.workflow }}
-
-permissions: read-all
-
 jobs:
   main:
     uses: ahmadnassri/actions/.github/workflows/push-docker.yml@master
+    secrets: inherit
     permissions:
-      packages: write
       contents: write
       statuses: write
       pull-requests: write

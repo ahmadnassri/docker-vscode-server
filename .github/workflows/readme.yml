@@ -19,5 +19,4 @@ permissions: read-all
 jobs:
   main:
     uses: ahmadnassri/actions/.github/workflows/push-docker-readme.yml@master
-    secrets:
-      password: ${{ secrets.DOCKER_TOKEN }}
+    secrets: inherit

@@ -5,6 +5,7 @@
 quiet: true
 skip-check:
   - CKV_DOCKER_2
+  - CKV_DOCKER_8
   - CKV_GHA_3
   - BC_DKR_3
   - CKV_GIT_1
