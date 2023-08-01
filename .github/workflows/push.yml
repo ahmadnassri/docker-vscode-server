@@ -8,6 +8,8 @@ on:
   - push
   - workflow_dispatch
 
+permissions: read-all
+
 jobs:
   main:
     uses: ahmadnassri/actions/.github/workflows/push-docker.yml@master
