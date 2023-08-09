@@ -1,6 +1,6 @@
-# --------------------------------------------- #
-# Note: this file originates in template-docker #
-# --------------------------------------------- #
+# ----------------------------------------------- #
+# Note: this file originates in template-template #
+# ----------------------------------------------- #
 
 name: pull_request_target
 
@@ -12,6 +12,3 @@ jobs:
   main:
     uses: ahmadnassri/actions/.github/workflows/pull-request-target.yml@master
     secrets: inherit
-    permissions:
-      contents: write
-      pull-requests: write
