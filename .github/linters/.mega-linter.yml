@@ -21,7 +21,7 @@ SHOW_ELAPSED_TIME: true
 FLAVOR_SUGGESTIONS: false
 VALIDATE_ALL_CODEBASE: false
 IGNORE_GENERATED_FILES: true
-FILTER_REGEX_EXCLUDE: (dist/*|README.md|test/fixtures/*|vendor/*|/schemas/*|coverage/*|.nyc_output/*)
+FILTER_REGEX_EXCLUDE: (dist/*|README.md|vendor/*|/schemas/*|test/fixtures/*)
 
 MARKDOWN_MARKDOWNLINT_CONFIG_FILE: .markdown-lint.yml
-REPOSITORY_CHECKOV_ARGUMENTS: [--skip-path, schemas]
+REPOSITORY_CHECKOV_ARGUMENTS: [--skip-path, schemas, --skip-path, test/fixtures]
