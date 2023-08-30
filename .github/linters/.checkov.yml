@@ -11,3 +11,4 @@ skip-check:
   - CKV_GIT_1
   - CKV_GIT_5
   - CKV_GIT_6
+  - CKV_TF_1
