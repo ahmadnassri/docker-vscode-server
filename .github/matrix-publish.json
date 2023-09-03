@@ -1,0 +1,7 @@
+{
+  "platforms": ["linux/amd64,linux/arm64,linux/arm/v7"],
+  "include": [
+    { "id": "GITHUB", "registry": "ghcr.io" },
+    { "id": "DOCKERHUB", "registry": "docker.io" }
+  ]
+}
