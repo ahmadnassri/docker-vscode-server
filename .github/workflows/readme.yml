@@ -2,7 +2,7 @@
 # Note: this file originates in template-docker #
 # --------------------------------------------- #
 
-name: push
+name: push-readme
 
 on:
   workflow_dispatch:
