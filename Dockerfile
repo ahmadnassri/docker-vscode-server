@@ -1,6 +1,6 @@
 # kics-scan disable=67fd0c4a-68cf-46d7-8c41-bc9fba7e40ae,965a08d7-ef86-4f14-8792-4a3b2098937e
 
-FROM ubuntu:23.10
+FROM ubuntu:24.04
 
 # hadolint ignore=DL3008
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive && apt-get install -y --no-install-recommends \
