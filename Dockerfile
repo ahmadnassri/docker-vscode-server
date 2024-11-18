@@ -4,12 +4,8 @@ FROM ubuntu:24.04
 
 # hadolint ignore=DL3008
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive && apt-get install -y --no-install-recommends \
-  # support env timezones
-  tzdata \
-  # vscode requirements
-  gnome-keyring wget curl python3-minimal ca-certificates \
-  # development tools
-  git curl httpie wget build-essential \
+  # tools & required packages
+  git curl wget ca-certificates \
   # clean up
   && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 
