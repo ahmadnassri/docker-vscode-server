@@ -1,6 +1,0 @@
-#!/bin/bash
-
-code-server serve \
-  --disable-telemetry \
-  --accept-server-license-terms \
-  --host 0.0.0.0
