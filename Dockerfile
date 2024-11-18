@@ -34,7 +34,7 @@ EOF
 ENTRYPOINT [ "code", "serve-web", "--without-connection-token", "--accept-server-license-terms" ]
 
 # default arguments
-CMD [ "--host", "0.0.0.0", "--port", "8000", "--user-data-dir", "/root/workspace", "--server-data-dir", "/root/server", "--extensions-dir", "/root/extensions" ]
+CMD [ "--host", "0.0.0.0", "--port", "8000", "--cli-data-dir", "/root/.vscode/cli-data", "--user-data-dir", "/root/.vscode/user-data", "--server-data-dir", "/root/.vscode/server-data", "--extensions-dir", "/root/.vscode/extensions" ]
 
 HEALTHCHECK NONE
 
