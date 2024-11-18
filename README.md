@@ -8,11 +8,7 @@ a Docker image for VS Code Server
 [![docker][docker-img]][docker-url]
 [![github][github-img]][github-url]
 
-The Visual Studio Code Server is a service you can run on a remote development machine, like your desktop PC or a virtual machine (VM). It allows you to securely connect to that remote machine from anywhere through a vscode.dev URL, without the requirement of SSH.
-
 This is simply a containerized version of the VS Code Server.
-
-Learn more on [the official documentation][]
 
 ## Features
 
@@ -38,8 +34,6 @@ docker run --rm \
   -v ./extensions:/root/.vscode/extensions
   ahmadnassri/vscode-server:latest
 ```
-
-  [the official documentation]: https://code.visualstudio.com/docs/remote/vscode-server
 
 ----
 > Author: [Ahmad Nassri](https://www.ahmadnassri.com/) &bull;
