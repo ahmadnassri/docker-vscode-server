@@ -10,7 +10,6 @@ Learn more on [the official documentation](https://code.visualstudio.com/docs/re
 <!-- markdownlint-capture -->
 <!-- markdownlint-disable MD007 MD030 -->
 - Runs entirely locally, without needing `vscode.dev`
-  - TODO: pending resolution of [issue #7018](https://github.com/microsoft/vscode-remote-release/issues/7018) to support `vscode.dev`
 - Persistent secrets _(requirement for Settings Sync)_
 <!-- markdownlint-restore -->
 
@@ -21,13 +20,9 @@ docker run --rm \
   --name vscode-server \
   --hostname vscode \
   -p 8000:8000 \
-  -e VSCODE_KEYRING_PASS="mysecretpassword" \
-  -e VSCODE_SERVE_MODE=serve-local \
-  -v /<host_folder_data>:/root/.vscode-server \
+  -v ./server-data:/root/.vscode/server-data
+  -v ./user-data:/root/.vscode/user-data
+  -v ./cli-data:/root/.vscode/cli-data
+  -v ./extensions:/root/.vscode/extensions
   ahmadnassri/vscode-server:latest
-```
-
-Optionally, you can specify an init script that could be used to install additional software adding the following mount:
-```bash
--v /<init_script_path>:/usr/local/bin/init
 ```
