@@ -28,10 +28,10 @@ docker run --rm \
   --name vscode-server \
   --hostname vscode \
   -p 8000:8000 \
-  -v ./server-data:/root/.vscode/server-data
-  -v ./user-data:/root/.vscode/user-data
-  -v ./cli-data:/root/.vscode/cli-data
-  -v ./extensions:/root/.vscode/extensions
+  -v ./server-data:/root/.vscode/server-data \
+  -v ./user-data:/root/.vscode/user-data \
+  -v ./cli-data:/root/.vscode/cli-data \
+  -v ./extensions:/root/.vscode/extensions \
   ahmadnassri/vscode-server:latest
 ```
 
