@@ -29,3 +29,10 @@ services:
     build: .
     env_file:
       - .env
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./code/server-data:/root/.vscode/server-data
+      - ./code/user-data:/root/.vscode/user-data
+      - ./code/cli-data:/root/.vscode/cli-data
+      - ./code/extensions:/root/.vscode/extensions
