@@ -9,7 +9,7 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive && apt-get install -
   # clean up
   && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 
-ARG VERSION="1.95.3"
+ARG VERSION="1.97.2"
 
 # install visual studio code
 RUN <<EOF
